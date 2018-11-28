@@ -23,7 +23,7 @@ public class Pedido implements Serializable {
     private String sabor;
 
     @NotBlank
-    private int quantidade;
+    private String quantidade;
 
     @Column(nullable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
@@ -51,11 +51,11 @@ public class Pedido implements Serializable {
         this.sabor = sabor;
     }
 
-    public int getQuantidade() {
+    public String getQuantidade() {
         return quantidade;
     }
 
-    public void setQuantidade(int quantidade) {
+    public void setQuantidade(String quantidade) {
         this.quantidade = quantidade;
     }
 
@@ -74,6 +74,4 @@ public class Pedido implements Serializable {
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
     }
-
-    // Getters and Setters ... (Omitted for brevity)
 }
