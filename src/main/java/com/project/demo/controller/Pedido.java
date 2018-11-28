@@ -19,8 +19,8 @@ public class Pedido implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
-    private String sabor;
+    @Column
+    private Integer idCardapio;
 
     @NotBlank
     private String quantidade;
@@ -43,12 +43,12 @@ public class Pedido implements Serializable {
         this.id = id;
     }
 
-    public String getSabor() {
-        return sabor;
+    public Integer getIdCardapio() {
+        return idCardapio;
     }
 
-    public void setSabor(String sabor) {
-        this.sabor = sabor;
+    public void setIdCardapio(Integer idCardapio) {
+        this.idCardapio = idCardapio;
     }
 
     public String getQuantidade() {

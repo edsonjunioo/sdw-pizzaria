@@ -11,54 +11,54 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/pedido")
 public class PedidoView {
 
     @Autowired
     PedidosRepository pedidosRepository;
 
     // Get All Notes
-    @GetMapping("/pedidos")
+    @GetMapping("/buscar")
     public List<Pedido> getAllPedidos() {
         return pedidosRepository.findAll();
     }
 
     // Create a new Note
 
-    @PostMapping("/pedidos")
+    @PostMapping("/cadastrar")
     public Pedido createPedido(@Valid @RequestBody Pedido note) {
         return pedidosRepository.save(note);
     }
 
 
-    @GetMapping("/pedidos/{id}")
+    @GetMapping("/buscar/{id}")
     public Pedido getNoteById(@PathVariable(value = "id") Long noteId) {
         return pedidosRepository.findById(noteId)
                 .orElseThrow(() -> new ResourceNotFoundException("Note", "id", noteId));
     }
 
 
-    @PutMapping("/pedidos/{id}")
-    public Pedido updatePedido(@PathVariable(value = "id") Long noteId,
-                           @Valid @RequestBody Pedido noteDetails) {
+    @PutMapping("/atualizar/{id}")
+    public Pedido updatePedido(@PathVariable(value = "id") Long pedidoId,
+                           @Valid @RequestBody Pedido pedidoDetails) {
 
-        Pedido note = pedidosRepository.findById(noteId)
-                .orElseThrow(() -> new ResourceNotFoundException("Note", "id", noteId));
+        Pedido pedido = pedidosRepository.findById(pedidoId)
+                .orElseThrow(() -> new ResourceNotFoundException("Note", "id", pedidoId));
 
-        note.setSabor(noteDetails.getSabor());
-        note.setQuantidade(noteDetails.getQuantidade());
+        pedido.setIdCardapio(pedidoDetails.getIdCardapio());
+        pedido.setQuantidade(pedidoDetails.getQuantidade());
 
-        Pedido updatedNote = pedidosRepository.save(note);
-        return updatedNote;
+        Pedido updatedPedido = pedidosRepository.save(pedido);
+        return updatedPedido;
     }
 
 
-    @DeleteMapping("/pedidos/{id}")
-    public ResponseEntity<?> deletePedido(@PathVariable(value = "id") Long noteId) {
-        Pedido note = pedidosRepository.findById(noteId)
-                .orElseThrow(() -> new ResourceNotFoundException("Note", "id", noteId));
+    @DeleteMapping("/excluir/{id}")
+    public ResponseEntity<?> deletePedido(@PathVariable(value = "id") Long pedidoId) {
+        Pedido pedido = pedidosRepository.findById(pedidoId)
+                .orElseThrow(() -> new ResourceNotFoundException("Note", "id", pedidoId));
 
-        pedidosRepository.delete(note);
+        pedidosRepository.delete(pedido);
 
         return ResponseEntity.ok().build();
     }
