@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("pizzaria/")
-public class GeneralView {
+public class PizzariaView {
 
     @Autowired
     PizzariaRepository pizzariaRepository;
