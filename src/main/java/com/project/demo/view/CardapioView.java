@@ -21,12 +21,12 @@ public class CardapioView {
     CardapioRepository cardapioRepository;
 
     @GetMapping("buscar")
-    public List<Cardapio> getAllPizzarias() {
+    public List<Cardapio> getAllCardapio() {
         return cardapioRepository.findAll();
     }
 
     @PostMapping("cadastrar")
-    public Cardapio createPizzaria(@Valid @RequestBody Cardapio cardapio) {
+    public Cardapio createCardapio(@Valid @RequestBody Cardapio cardapio) {
         return cardapioRepository.save(cardapio);
     }
 
@@ -45,8 +45,8 @@ public class CardapioView {
         return updatedCardapio;
     }
 
-    @DeleteMapping("/excluir/{id}")
-    public ResponseEntity<?> deletePedido(@PathVariable(value = "id") Long cardapioId) {
+    @DeleteMapping("excluir/{id}")
+    public ResponseEntity<?> deleteCardapio(@PathVariable(value = "id") Long cardapioId) {
         Cardapio cardapio = cardapioRepository.findById(cardapioId)
                 .orElseThrow(() -> new ResourceNotFoundException("Note", "id", cardapioId));
 

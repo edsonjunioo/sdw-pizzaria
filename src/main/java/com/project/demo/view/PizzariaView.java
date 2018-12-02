@@ -30,7 +30,7 @@ public class PizzariaView {
     }
 
     @PutMapping("/atualizar/{id}")
-    public Pizzaria updatePedido(@PathVariable(value = "id") Long pizzariaId,
+    public Pizzaria updatePizzaria(@PathVariable(value = "id") Long pizzariaId,
                                @Valid @RequestBody Pizzaria pizzariaDetails) {
 
         Pizzaria pizzaria = pizzariaRepository.findById(pizzariaId)
@@ -44,7 +44,7 @@ public class PizzariaView {
     }
 
     @DeleteMapping("/excluir/{id}")
-    public ResponseEntity<?> deletePedido(@PathVariable(value = "id") Long pizzariaId) {
+    public ResponseEntity<?> deletePizzaria(@PathVariable(value = "id") Long pizzariaId) {
         Pizzaria pizzaria = pizzariaRepository.findById(pizzariaId)
                 .orElseThrow(() -> new ResourceNotFoundException("Note", "id", pizzariaId));
 
