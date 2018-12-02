@@ -23,6 +23,10 @@ public class Admin {
     @NotBlank
     private String email;
 
+    @NotBlank
+    private String senha;
+
+
     public Long getId() {
         return id;
     }
@@ -61,5 +65,13 @@ public class Admin {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 }
