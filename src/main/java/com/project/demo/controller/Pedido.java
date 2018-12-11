@@ -1,6 +1,7 @@
 package com.project.demo.controller;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.project.demo.model.StatusBonus;
 import com.project.demo.model.StatusPagamento;
 import com.project.demo.model.StatusPedido;
 import org.springframework.data.annotation.CreatedDate;
@@ -26,10 +27,10 @@ public class Pedido implements Serializable {
     private Long idCliente;
 
     @Column
-    private Integer idCardapio;
+    private Long idCardapio;
 
     @NotBlank
-    private String quantidade;
+    private Integer quantidade;
 
     @Column(nullable = false)
     private StatusPedido statusPedido;
@@ -42,6 +43,12 @@ public class Pedido implements Serializable {
 
     @Column(nullable = false)
     private LocalDateTime updatedAt;
+
+    @Column
+    private Float total;
+
+    @Column
+    private StatusBonus bonus;
 
     public Long getId() {
         return id;
@@ -59,19 +66,19 @@ public class Pedido implements Serializable {
         this.idCliente = idCliente;
     }
 
-    public Integer getIdCardapio() {
+    public Long getIdCardapio() {
         return idCardapio;
     }
 
-    public void setIdCardapio(Integer idCardapio) {
+    public void setIdCardapio(Long idCardapio) {
         this.idCardapio = idCardapio;
     }
 
-    public String getQuantidade() {
+    public Integer getQuantidade() {
         return quantidade;
     }
 
-    public void setQuantidade(String quantidade) {
+    public void setQuantidade(Integer quantidade) {
         this.quantidade = quantidade;
     }
 
@@ -105,5 +112,21 @@ public class Pedido implements Serializable {
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public Float getTotal() {
+        return total;
+    }
+
+    public void setTotal(Float total) {
+        this.total = total;
+    }
+
+    public StatusBonus getBonus() {
+        return bonus;
+    }
+
+    public void setBonus(StatusBonus bonus) {
+        this.bonus = bonus;
     }
 }
