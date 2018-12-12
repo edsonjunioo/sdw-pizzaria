@@ -1,19 +1,14 @@
 package com.project.demo.view;
 
 
-import com.project.demo.controller.Pedido;
-import com.project.demo.controller.ResourceNotFoundException;
-import com.project.demo.model.PedidosRepository;
-import com.project.demo.model.StatusPagamento;
-import com.project.demo.model.StatusPedido;
+import com.project.demo.controller.*;
+import com.project.demo.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.TemporalType;
 import javax.validation.Valid;
 import java.time.LocalDateTime;
-import java.time.temporal.Temporal;
 import java.util.List;
 
 @RestController
@@ -22,6 +17,9 @@ public class PedidoView {
 
     @Autowired
     PedidosRepository pedidosRepository;
+
+    @Autowired
+    CardapioRepository cardapioRepository;
 
     // Get All Notes
     @GetMapping("/buscar")
@@ -32,12 +30,34 @@ public class PedidoView {
     // Create a new Note
 
     @PostMapping("/cadastrar")
-    public Pedido createPedido(@Valid @RequestBody Pedido pedido) {
+    public Pedido createPedido(@Valid @RequestBody Pedido pedido){
+
+        Float entrega = 10f;
+        Float refrigerante = 8f;
+
+
         pedido.setStatusPedido(StatusPedido.SOLICITADO);
         pedido.setStatusPagamento(StatusPagamento.PENDENTE);
         pedido.setCreatedAt(LocalDateTime.now());
         pedido.setUpdatedAt(LocalDateTime.now());
+        pedido.setTotal((cardapioRepository.findById(pedido.getIdCardapio()).get().getPreco() * pedido.getQuantidade()) + entrega);
+
+        Estado estadoBonus0 = new EstadoBonus0(pedido);
+        estadoBonus0.setEstadoBonus();
+
+        if (cardapioRepository.findById(pedido.getIdCardapio()).get().getPreco() >= 20 && cardapioRepository.findById(pedido.getIdCardapio()).get().getPreco() < 50) {
+            EstadoBonus1 estadoBonus1 = new EstadoBonus1(pedido);
+            estadoBonus1.setEstadoBonus();
+        }
+
+        if (cardapioRepository.findById(pedido.getIdCardapio()).get().getPreco() >= 50) {
+            EstadoBonus2 estadoBonus2 = new EstadoBonus2(pedido);
+            estadoBonus2.setEstadoBonus();
+            pedido.setTotal((cardapioRepository.findById(pedido.getIdCardapio()).get().getPreco() * pedido.getQuantidade()));
+        }
+
         return pedidosRepository.save(pedido);
+
     }
 
 
@@ -50,7 +70,7 @@ public class PedidoView {
 
     @PutMapping("/atualizar/{id}")
     public Pedido updatePedido(@PathVariable(value = "id") Long pedidoId,
-                           @Valid @RequestBody Pedido pedidoDetails) {
+                               @Valid @RequestBody Pedido pedidoDetails) {
 
         Pedido pedido = pedidosRepository.findById(pedidoId)
                 .orElseThrow(() -> new ResourceNotFoundException("Note", "id", pedidoId));

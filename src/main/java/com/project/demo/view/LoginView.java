@@ -1,10 +1,7 @@
 package com.project.demo.view;
 
 
-import com.project.demo.controller.Admin;
-import com.project.demo.controller.Cliente;
-import com.project.demo.controller.Login;
-import com.project.demo.controller.ResourceNotFoundException;
+import com.project.demo.controller.*;
 import com.project.demo.model.AdminRepository;
 import com.project.demo.model.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
