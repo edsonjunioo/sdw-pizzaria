@@ -19,14 +19,21 @@ public class LimparBaseFacadeView {
     @Autowired
     PizzariaRepository pizzariaRepository;
 
-    public LimparBaseFacadeView() {
-    }
+    @Autowired
+    ClienteRepository clienteRepository;
+
+    @Autowired
+    AdminRepository adminRepository;
+
+
 
     @PostMapping("base")
     public void cleanbase(){
         pedidosRepository.deleteAll();
         cardapioRepository.deleteAll();
         pizzariaRepository.deleteAll();
+        adminRepository.deleteAll();
+        clienteRepository.deleteAll();
     }
 
 

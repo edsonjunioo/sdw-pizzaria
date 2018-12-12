@@ -29,7 +29,7 @@ public class Pedido implements Serializable {
     @Column
     private Long idCardapio;
 
-    @NotBlank
+    @Column
     private Integer quantidade;
 
     @Column(nullable = false)
