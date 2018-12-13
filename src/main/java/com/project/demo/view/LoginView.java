@@ -35,10 +35,11 @@ public class LoginView {
         return ResponseEntity.ok(cliente);
     }
 
+    Admin admin = SingletonAdmin.getAdminRepository();
+
     @GetMapping("admin")
     public ResponseEntity<?> loginAdmin(@Valid @RequestBody Login login) {
-
-        Admin admin = adminRepository.findByEmailAndSenha(login.getEmail(), login.getSenha());
+        admin = adminRepository.findByEmailAndSenha(login.getEmail(), login.getSenha());
 
         if (admin.getEmail().isEmpty() || admin.getSenha().isEmpty()){
             return ResponseEntity.badRequest().build();

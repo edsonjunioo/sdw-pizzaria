@@ -1,9 +1,7 @@
 package com.project.demo.view;
 
 
-import com.project.demo.controller.Admin;
 import com.project.demo.controller.Cliente;
-import com.project.demo.controller.Pedido;
 import com.project.demo.controller.ResourceNotFoundException;
 import com.project.demo.model.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +32,24 @@ public class ClienteView {
     public Cliente getPedidoById(@PathVariable(value = "id") Long clienteId) {
         return clienteRepository.findById(clienteId)
                 .orElseThrow(() -> new ResourceNotFoundException("Note", "id", clienteRepository));
+    }
+
+    @PutMapping("/atualizar/{id}")
+    public Cliente updatePedido(@PathVariable(value = "id") Long clienteId,
+                                @Valid @RequestBody Cliente clienteDetails) {
+
+        Cliente cliente = clienteRepository.findById(clienteId)
+                .orElseThrow(() -> new ResourceNotFoundException("Note", "id", clienteId));
+
+        cliente.setNome(clienteDetails.getNome());
+        cliente.setCpf(clienteDetails.getCpf());
+        cliente.setEndereco(clienteDetails.getEndereco());
+        cliente.setEmail(clienteDetails.getEmail());
+        cliente.setSenha(clienteDetails.getSenha());
+        cliente.setTelefone(clienteDetails.getTelefone());
+
+        Cliente updatedCliente = clienteRepository.save(cliente);
+        return updatedCliente;
     }
 
     @DeleteMapping("/excluir/{id}")
