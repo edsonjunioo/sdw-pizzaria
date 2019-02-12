@@ -23,6 +23,15 @@ public class Cardapio {
     @Column
     private Float preco;
 
+    public Cardapio(@NotBlank String title, @NotBlank String descricao, Float preco) {
+        this.title = title;
+        this.descricao = descricao;
+        this.preco = preco;
+    }
+
+    public Cardapio() {
+    }
+
     public Long getId() {
         return id;
     }
